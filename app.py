@@ -3,7 +3,7 @@ import google.generativeai as genai
 import requests
 
 app = Flask(__name__)
-genai.configure(api_key="AIzaSyAjenxUzLWH661uHV2v62iw2ovuc08Ks94")
+genai.configure(api_key="")
 
 @app.route('/', methods=['GET','POST'])
 def index():
