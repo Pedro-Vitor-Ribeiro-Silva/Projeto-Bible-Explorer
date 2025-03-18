@@ -7,7 +7,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
+<<<<<<< HEAD
 cliente = genai.Client(api_key=os.getenv('APITOKEN'))
+=======
+genai.configure(api_key="")
+>>>>>>> 56c415c7694513cd41dbe96104342a7e2b68fe5d
 
 @app.route('/', methods=['GET','POST'])
 def index():
