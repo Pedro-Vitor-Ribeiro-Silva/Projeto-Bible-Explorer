@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bible Explorer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <style>
+      canvas {
+        width: 100%;
+        height: 500px;
+        border: 1px solid #000;
+        display: block;
+        margin: 0 auto;
+    }
+    .controls {
+        margin: 10px 0;
+    }
+  </style>  
+  </head>
+  <body class="bg-success bg-opacity-10 min-vh-100 d-flex align-items-center py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <div class="bg-white rounded-4 shadow p-4 p-md-5">
+            <div class="text-center mb-5">
+              <i class="bi bi-book text-success display-4 mb-3 d-block"></i>
+              <h1 class="display-4 fw-light text-secondary mb-0">Bible Explorer</h1>
+            </div>
+            <form action="/" method="post">
+            <div class="row g-3 mb-4 align-items-center">
+              <div class="col-md-9">
+                    <input type="text" name="tema" class="form-control border-success-subtle rounded-3" placeholder="Não tem certeza de qual versículo buscar? Me diga um tema!!">
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success w-100 rounded">
+                        <i class="bi bi-search"></i> Buscar
+                    </button>
+                </div>
+              </div>
+            </form>
+
+            <form action="/" method="post">
+            <div class="row g-4 mb-5">
+              <div class="col-md-6">
+                <label for="bibleVersion" class="form-label">Bible Version</label>
+                <select class="form-select form-select-lg border-success-subtle rounded-3" name="bibleVersion" id="bibleVersion">
+                    <option selected disabled>Selecione a Versão...</option>
+                    <option value="cherokee">Cherokee New Testament</option>
+                    <option value="cuv">Chinese Union Version</option>
+                    <option value="bkr">Bible kralická</option>
+                    <option value="asv">American Standard Version (1901)</option>
+                    <option value="bbe">Bible in Basic English</option>
+                    <option value="darby">Darby Bible</option>
+                    <option value="dra">Douay-Rheims 1899 American Edition</option>
+                    <option value="kjv">King James Version</option>
+                    <option value="web">World English Bible (default)</option>
+                    <option value="ylt">Young's Literal Translation (NT only)</option>
+                    <option value="oeb-cw">Open English Bible, Commonwealth Edition</option>
+                    <option value="webbe">World English Bible, British Edition</option>
+                    <option value="oeb-us">Open English Bible, US Edition</option>
+                    <option value="clementine">Clementine Latin Vulgate</option>
+                    <option value="almeida">João Ferreira de Almeida</option>
+                    <option value="rccv">Protestant Romanian Corrected Cornilescu Version</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="book" class="form-label">Book</label>
+                <select class="form-select form-select-lg border-success-subtle rounded-3" name="bible-book" id="bible-book" onchange="updateChapters()">
+                  <option selected disabled>Selecione o Livro...</option>
+                  <option value="GEN" data-chapters="50">Gênesis</option>
+                  <option value="EXO" data-chapters="40">Êxodo</option>
+                  <option value="LEV" data-chapters="27">Levítico</option>
+                  <option value="NUM" data-chapters="36">Números</option>
+                  <option value="DEU" data-chapters="34">Deuteronômio</option>
+                  <option value="JOS" data-chapters="24">Josué</option>
+                  <option value="JDG" data-chapters="21">Juízes</option>
+                  <option value="RUT" data-chapters="4">Rute</option>
+                  <option value="1SA" data-chapters="31">1 Samuel</option>
+                  <option value="2SA" data-chapters="24">2 Samuel</option>
+                  <option value="1KI" data-chapters="22">1 Reis</option>
+                  <option value="2KI" data-chapters="25">2 Reis</option>
+                  <option value="1CH" data-chapters="29">1 Crônicas</option>
+                  <option value="2CH" data-chapters="36">2 Crônicas</option>
+                  <option value="EZR" data-chapters="10">Esdras</option>
+                  <option value="NEH" data-chapters="13">Neemias</option>
+                  <option value="EST" data-chapters="10">Ester</option>
+                  <option value="JOB" data-chapters="42">Jó</option>
+                  <option value="PSA" data-chapters="150">Salmos</option>
+                  <option value="PRO" data-chapters="31">Provérbios</option>
+                  <option value="ECC" data-chapters="12">Eclesiastes</option>
+                  <option value="SNG" data-chapters="8">Cânticos</option>
+                  <option value="ISA" data-chapters="66">Isaías</option>
+                  <option value="JER" data-chapters="52">Jeremias</option>
+                  <option value="LAM" data-chapters="5">Lamentações</option>
+                  <option value="EZK" data-chapters="48">Ezequiel</option>
+                  <option value="DAN" data-chapters="12">Daniel</option>
+                  <option value="HOS" data-chapters="14">Oseias</option>
+                  <option value="JOL" data-chapters="3">Joel</option>
+                  <option value="AMO" data-chapters="9">Amós</option>
+                  <option value="OBA" data-chapters="1">Obadias</option>
+                  <option value="JON" data-chapters="4">Jonas</option>
+                  <option value="MIC" data-chapters="7">Miqueias</option>
+                  <option value="NAM" data-chapters="3">Naum</option>
+                  <option value="HAB" data-chapters="3">Habacuque</option>
+                  <option value="ZEP" data-chapters="3">Sofonias</option>
+                  <option value="HAG" data-chapters="2">Ageu</option>
+                  <option value="ZEC" data-chapters="14">Zacarias</option>
+                  <option value="MAL" data-chapters="4">Malaquias</option>
+                  <option value="MAT" data-chapters="28">Mateus</option>
+                  <option value="MRK" data-chapters="16">Marcos</option>
+                  <option value="LUK" data-chapters="24">Lucas</option>
+                  <option value="JHN" data-chapters="21">João</option>
+                  <option value="ACT" data-chapters="28">Atos</option>
+                  <option value="ROM" data-chapters="16">Romanos</option>
+                  <option value="1CO" data-chapters="16">1 Coríntios</option>
+                  <option value="2CO" data-chapters="13">2 Coríntios</option>
+                  <option value="GAL" data-chapters="6">Gálatas</option>
+                  <option value="EPH" data-chapters="6">Efésios</option>
+                  <option value="PHP" data-chapters="4">Filipenses</option>
+                  <option value="COL" data-chapters="4">Colossenses</option>
+                  <option value="1TH" data-chapters="5">1 Tessalonicenses</option>
+                  <option value="2TH" data-chapters="3">2 Tessalonicenses</option>
+                  <option value="1TI" data-chapters="6">1 Timóteo</option>
+                  <option value="2TI" data-chapters="4">2 Timóteo</option>
+                  <option value="TIT" data-chapters="3">Tito</option>
+                  <option value="PHM" data-chapters="1">Filemom</option>
+                  <option value="HEB" data-chapters="13">Hebreus</option>
+                  <option value="JAS" data-chapters="5">Tiago</option>
+                  <option value="1PE" data-chapters="5">1 Pedro</option>
+                  <option value="2PE" data-chapters="3">2 Pedro</option>
+                  <option value="1JN" data-chapters="5">1 João</option>
+                  <option value="2JN" data-chapters="1">2 João</option>
+                  <option value="3JN" data-chapters="1">3 João</option>
+                  <option value="JUD" data-chapters="1">Judas</option>
+                  <option value="REV" data-chapters="22">Apocalipse</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="chapter" class="form-label">Chapter</label>
+                <select class="form-select form-select-lg border-success-subtle rounded-3" name="bible-chapter" id="bible-chapter">
+                    <option selected disabled>Selecione o Capítulo...</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="verse" class="form-label">Verse</label>
+                <select class="form-select form-select-lg border-success-subtle rounded-3" name="bible-verse" id="bible-verse">
+                    <option selected disabled>Selecione o Versículo...</option>     
+                  
+                </select>
+              </div>
+              <div class="col-md-12 d-flex justify-content-center">
+                  <button type="submit" class="btn btn-success">Encontar Versiculo</button>
+              </div>
+            </div>
+          </form>
+         
+
+            {% if versiculo_text %}
+            <div class="bg-light border-start border-success border-4 rounded-3 p-4 mb-4 shadow-sm">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="text-muted mb-0">{{referencia_versiculo}} {{versao_da_biblia}}</h5>
+              </div>
+              <p class="fs-4 mb-0">{{versiculo_text}}</p>
+            </div> 
+              {% elif erro %}
+              <div class="bg-light border-start border-success border-4 rounded-3 p-4 mb-4 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="text-muted mb-0">...</h5>
+                </div>
+                <p class="fs-4 mb-0">{{erro}}</p>
+              </div> 
+              {% else %}
+              <div class="bg-light border-start border-success border-4 rounded-3 p-4 mb-4 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="text-muted mb-0">Nada Ainda</h5>
+                </div>
+                <p class="fs-4 mb-0">...</p>
+              </div> 
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/script.js"></script>
+  </body>
+</html>
