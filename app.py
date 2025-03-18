@@ -1,9 +1,13 @@
 from flask import Flask, render_template, request
-import google.generativeai as genai
+from google import genai
 import requests
+import os 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-genai.configure(api_key="AIzaSyAjenxUzLWH661uHV2v62iw2ovuc08Ks94")
+cliente = genai.Client(api_key=os.getenv('APITOKEN'))
 
 @app.route('/', methods=['GET','POST'])
 def index():
@@ -15,7 +19,7 @@ def index():
             versao_da_biblia = request.form.get('bibleVersion', 'almeida')  # Define um padrão
             tema = request.form.get('tema')
             print(tema)
-            model = genai.GenerativeModel('gemini-2.0-flash')
+
             prompt = f"""Me forneça apenas a parte final da seguinte URL no formato correto, sem explicações ou textos adicionais: 
             https://bible-api.com/livro+capitulo:versiculo?translation={versao_da_biblia}. 
 
@@ -24,7 +28,8 @@ def index():
             Se não houver nenhum versículo relevante para esse tema, responda apenas com "NÃO ENCONTRADO", sem qualquer explicação adicional.
 
             Sua resposta deve conter **somente** a parte final da URL ou "NÃO ENCONTRADO", sem qualquer outro texto."""
-            response = model.generate_content(prompt)
+            
+            response = cliente.models.generate_content(model='gemini-2.0-flash', contents=prompt)
 
             texto_gemini = response.text.strip()
             print(f"Resposta da IA: {texto_gemini}")
