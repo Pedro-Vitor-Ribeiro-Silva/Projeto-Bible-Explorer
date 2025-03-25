@@ -66,8 +66,8 @@ def index():
             versiculo = request.form.get('bible-verse')
 
             # Validação: Verificar se todos os campos necessários estão presentes
-            if not livro or not capitulo or not versiculo:
-                return render_template('index.html', erro="Por favor, preencha todos os campos: livro, capítulo e versículo.")
+            if not livro or not capitulo or not versiculo or not versao_da_biblia:
+                return render_template('index.html', erro="Por favor, preencha todos os campos: Versão da biblia, livro, capítulo e versículo.")
 
             # Validação: Verificar se capitulo e versículo são números válidos
             if not capitulo.isdigit() or not versiculo.isdigit():
