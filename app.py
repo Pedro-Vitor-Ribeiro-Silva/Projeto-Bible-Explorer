@@ -29,7 +29,7 @@ def index():
 
             Sua resposta deve conter **somente** a parte final da URL ou "NÃO ENCONTRADO", sem qualquer outro texto."""
             
-            response = cliente.models.generate_content(model='gemini-2.0-flash', contents=prompt)
+            response = cliente.models.generate_content(model='gemini-3-flash-preview', contents=prompt)
 
             texto_gemini = response.text.strip()
             print(f"Resposta da IA: {texto_gemini}")
