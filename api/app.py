@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 cliente = genai.Client(api_key=os.getenv('APITOKEN'))
 
 @app.route('/', methods=['GET','POST'])

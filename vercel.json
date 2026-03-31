@@ -1,15 +1,14 @@
 {
   "version": 2,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/app.py"
+    }
+  ],
   "functions": {
-    "app.py": {
-      "runtime": "@vercel/python@4.3.0",
+    "api/app.py": {
       "maxDuration": 60
     }
-  },
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "app.py"
-    }
-  ]
+  }
 }
